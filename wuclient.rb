@@ -1,21 +1,18 @@
 #!/usr/bin/env ruby
-require 'ffi-rzmq'
+require 'rbczmq'
 require 'scanf'
 
 context = ZMQ::Context.new
-subscriber = context.socket(ZMQ::SUB)
-rc = subscriber.connect('tcp://localhost:5556')
-fail unless rc == 0
+subscriber = context.socket :SUB
+subscriber.connect('tcp://localhost:5556')
 
 filter = ARGV[0] || '10001 '
-subscriber.setsockopt(ZMQ::SUBSCRIBE, filter)
+subscriber.subscribe(filter)
 
 zipcode = ''
 total_temp = 0
 100.times do
-  s=''
-  rc = subscriber.recv_string(s)
-  fail if rc < 0
+  s = subscriber.recv
   zipcode, temperature, humidity = s.scanf('%d %d %d')
   total_temp += temperature
 end

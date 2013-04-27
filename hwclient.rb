@@ -1,13 +1,13 @@
-require 'ffi-rzmq'
+#!/usr/bin/env ruby
+require 'rbczmq'
 
 context = ZMQ::Context.new
-requester = context.socket(ZMQ::REQ)
+requester = context.socket(:REQ)
 requester.connect('tcp://localhost:5555')
 
 10.times do |i|
   puts "Sending Hello #{i}..."
-  requester.send_string("Hello")
-  s=""
-  requester.recv_string(s)
+  requester.send("Hello")
+  requester.recv
   puts "Received World #{i}"
 end

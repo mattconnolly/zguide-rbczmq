@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require 'ffi-rzmq'
+require 'rbczmq'
 
 context = ZMQ::Context.new
 receiver = context.socket(ZMQ::PULL)
@@ -9,10 +9,8 @@ sender = context.socket(ZMQ::PUSH)
 sender.connect('tcp://localhost:5558')
 
 loop do
-  s = ''
-  rc = receiver.recv_string(s)
-  fail if rc < 0
+  s = receiver.recv
   print "#{s}."
   sleep(s.to_i/1000.0)
-  sender.send_string("")
+  sender.send("")
 end

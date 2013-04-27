@@ -1,14 +1,13 @@
-require 'ffi-rzmq'
+#!/usr/bin/env ruby
+require 'rbczmq'
 
 context = ZMQ::Context.new
-responder = context.socket(ZMQ::REP)
-raise "Failed to create socket" unless responder
+responder = context.socket(:REP)
 responder.bind('tcp://*:5555')
 
 loop do
-  s=""
-  responder.recv_string(s)
+  responder.recv
   puts "Received Hello"
-  responder.send_string("World")
+  responder.send("World")
   sleep 1
 end
