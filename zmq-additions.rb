@@ -26,4 +26,5 @@ module ZMQ
     loop.register(poll_back)
     loop.start
   end
+
 end
