@@ -8,13 +8,9 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    ffi (1.8.1)
-    ffi-rzmq (1.0.1)
-      ffi
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  ffi-rzmq
   rbczmq!
