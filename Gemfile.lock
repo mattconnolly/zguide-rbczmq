@@ -1,9 +1,9 @@
 GIT
   remote: git://github.com/mattconnolly/rbczmq.git
-  revision: 5f5d5e4084458596c0c94af776e21a11c827fdfa
+  revision: adbbf938c363a98c21fa1a52fa31a48792ad01ac
   branch: master
   specs:
-    rbczmq (1.3)
+    rbczmq (1.4)
 
 GEM
   remote: https://rubygems.org/
