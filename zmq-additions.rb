@@ -12,19 +12,21 @@ module ZMQ
     end
   end
 
-  def self.proxy(frontend, backend, capture=nil)
-    # ideally, this should just call the ZMQ zmq_proxy function,
-    # but it appears to be missing from the interface. This is an incomplete
-    # implementation, it does nothing with the capture socket.
-    loop = Loop.new
-    puts loop.inspect
-    poll_front = Pollitem.new(frontend, ZMQ::POLLIN)
-    poll_back = Pollitem.new(backend, ZMQ::POLLIN)
-    poll_front.handler = ProxyHandler.new poll_front, frontend, backend
-    poll_back.handler = ProxyHandler.new poll_back, backend, frontend
-    loop.register(poll_front)
-    loop.register(poll_back)
-    loop.start
+  unless ::ZMQ.methods.include? :proxy
+    def self.proxy_rb(frontend, backend, capture=nil)
+      # ideally, this should just call the ZMQ zmq_proxy function,
+      # but it appears to be missing from the interface. This is an incomplete
+      # implementation, it does nothing with the capture socket.
+      loop = Loop.new
+      puts loop.inspect
+      poll_front = Pollitem.new(frontend, ZMQ::POLLIN)
+      poll_back = Pollitem.new(backend, ZMQ::POLLIN)
+      poll_front.handler = ProxyHandler.new poll_front, frontend, backend
+      poll_back.handler = ProxyHandler.new poll_back, backend, frontend
+      loop.register(poll_front)
+      loop.register(poll_back)
+      loop.start
+    end
   end
 
 end
