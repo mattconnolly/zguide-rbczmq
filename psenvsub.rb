@@ -10,8 +10,6 @@ subscriber.subscribe("B")
 
 loop do
   address = subscriber.recv
-  contents = subscriber.recv_frame
-  puts "[#{address}] #{contents.size}: #{contents.data.unpack('C*').inspect}"
-  message = subscriber.recv_message
-  message.print
+  contents = subscriber.recv
+  puts "[#{address}] #{contents}"
 end
